@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import Nav from './Nav';
 import Welcome from './Welcome';
 import About from './About';
+import Register from './Register';
+import Login from './Login';
 
 class App extends React.Component {
 	render() {
@@ -10,8 +12,10 @@ class App extends React.Component {
 			<div>
 				<Nav />
 				<Switch>
-					<Route path="/" render={() => (<Welcome />)} />
+					<Route exact path="/" render={() => (<Welcome />)} />
 					<Route path="/about" render={() => (<About />)} />
+					<Route path="/register" render={() => (<Register />)} />
+					<Route path="/login" render={() => (<Login />)} />
 				</Switch>
 			</div>
 		)
