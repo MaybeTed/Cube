@@ -1,0 +1,72 @@
+/* colors 
+#D7CEC7  GRAIN
+#565656  BLACKBOARD
+#76323F  OXBLOOD
+#C09F80  TAN
+
+#fcf6ed Nav background
+*/
+
+
+/****************
+  GLOBAL STYLES */
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #D7CEC7;
+	color: #565656;
+	font-size: 1.3em;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+/****************
+       Nav     */
+
+.nav {
+	height: 60px;
+	width: 100%;
+	position: fixed;
+	background: #fcf6ed;
+}
+
+.nav h1 {
+	margin: auto;
+	width: 87px;
+	line-height: 60px;
+}
+
+.nav-links {
+	position: absolute;
+	right: 20px;
+	top: 0;
+}
+
+.nav-links li {
+	padding: 0 15px;
+	height: 60px;
+	line-height: 60px;
+	margin-right: 5px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.nav-links li:hover {
+	color: #76323F;
+}
+
+/****************
+     Welcome   */
+
+.welcome {
+	background: black;
+}
