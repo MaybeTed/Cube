@@ -1,11 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route } from 'react-router';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import App from './components/App';
 
 render(
-	<Router>
-		<Route path="/" component={App} />
-	</Router>,
+	<BrowserRouter>
+		<Switch>
+			<Route path="/" component={App} />
+		</Switch>
+	</BrowserRouter>,
 	document.getElementById('root')
 );
