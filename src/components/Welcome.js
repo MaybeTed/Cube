@@ -56,26 +56,27 @@ class Welcome extends React.Component {
 	}
 
 	move(row, column, direction) {
-	  let { front, back, top, bottom, left, right } = this.state;	
+	  let { front, back, top, bottom, left, right } = this.state;
+
 	  // if row isnt null shift a row left or right
 	  if (row !== null) {
 	    if (row === 1) {
-	      frontChunk = front.splice(0,3);
+	      var frontChunk = front.splice(0,3);
 	      if (direction === 'left') {
 	        front.unshift(...right.splice(0,3));
 	        right.unshift(...back.splice(0,3));
 	        back.unshift(...left.splice(0,3));
 	        left.unshift(...frontChunk);
-	        top = this.matrixRight(ttop);
+	        top = this.matrixRight(top);
 	      } else {
 	        front.unshift(...left.splice(0,3));
 	        left.unshift(...back.splice(0,3));
 	        back.unshift(...right.splice(0,3));
 	        right.unshift(...frontChunk);
-	        top = this.matrixLeft(ttop);
+	        top = this.matrixLeft(top);
 	      }
 	    } else {
-	      frontChunk = front.splice(6, 9);
+	      var frontChunk = front.splice(6, 9);
 	      if (direction === 'left') {
 	        front.push(...right.splice(6,9));
 	        right.push(...back.splice(6,9));
@@ -92,9 +93,9 @@ class Welcome extends React.Component {
 	    }
 	  } else {
 	    if (column === 1) {
-	      topChunk = front[0];
-	      middleChunk = front[3];
-	      bottomChunk = front[6];
+	      var topChunk = front[0];
+	      var middleChunk = front[3];
+	      var bottomChunk = front[6];
 	      if (direction === 'up') {
 	        front[0] = bottom[0];
 	        front[3] = bottom[3];
@@ -126,9 +127,9 @@ class Welcome extends React.Component {
 	      }
 	    } else {
 	      // if column = 3
-	      topChunk = front[2];
-	      middleChunk = front[5];
-	      bottomChunk = front[8];
+	      var topChunk = front[2];
+	      var middleChunk = front[5];
+	      var bottomChunk = front[8];
 	      if (direction === 'up') {
 	        front[2] = bottom[2];
 	        front[5] = bottom[5];
@@ -171,29 +172,39 @@ class Welcome extends React.Component {
 
 	render() {
 		return (
-			<div className="welcome" ref={elem => this.nv = elem}>
-				<section className="cube-container" onKeyDown={this.handleKeyPress} tabIndex="0">
-					<div id="cube">
-						<figure className="front">
-							{this.print('front')}
-						</figure>
-						<figure className="back">
-							{this.print('back')}
-						</figure>
-						<figure className="right">
-							{this.print('right')}
-						</figure>
-						<figure className="left">
-							{this.print('left')}
-						</figure>
-						<figure className="top">
-							{this.print('top')}
-						</figure>
-						<figure className="bottom">
-							{this.print('bottom')}
-						</figure>
-					</div>
-				</section>
+			<div className="welcome" ref={elem => this.nv = elem} onKeyDown={this.handleKeyPress} tabIndex="0">
+				<div className="buttons-container">
+					<div className="move-button left1" onClick={() => this.move(1, null, 'left')}>&larr;</div>
+					<div className="move-button right1" onClick={() => this.move(1, null, 'right')}>&rarr;</div>
+					<div className="move-button up1" onClick={() => this.move(null, 1, 'up')}>&uarr;</div>
+					<div className="move-button up3" onClick={() => this.move(null, 3, 'up')}>&uarr;</div>
+					<div className="move-button left3" onClick={() => this.move(3, null, 'left')}>&larr;</div>
+					<div className="move-button right3" onClick={() => this.move(3, null, 'right')}>&rarr;</div>
+					<div className="move-button down1" onClick={() => this.move(null, 1, 'down')}>&darr;</div>
+					<div className="move-button down3" onClick={() => this.move(null, 3, 'down')}>&darr;</div>
+					<section className="cube-container" >
+						<div id="cube">
+							<figure className="front">
+								{this.print('front')}
+							</figure>
+							<figure className="back">
+								{this.print('back')}
+							</figure>
+							<figure className="right">
+								{this.print('right')}
+							</figure>
+							<figure className="left">
+								{this.print('left')}
+							</figure>
+							<figure className="top">
+								{this.print('top')}
+							</figure>
+							<figure className="bottom">
+								{this.print('bottom')}
+							</figure>
+						</div>
+					</section>
+				</div>
 			</div>
 		)
 	}
