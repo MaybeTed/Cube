@@ -13,12 +13,14 @@ const config = {
 	module: {
 		rules: [
 			{
-				test: /\.js?/,
+				test: /\.js?$/,
 				exclude: /node_modules/,
 				include: APP_DIR,
-				loader: 'babel-loader',
-				options: {
-					presets: ['react']
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['env', 'react', 'stage-2']
+					}
 				}
 			}
 		],
