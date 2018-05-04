@@ -15,6 +15,7 @@ class Welcome extends React.Component {
 		}
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.print = this.print.bind(this);
+		this.spinTopLayerLeft = this.spinTopLayerLeft.bind(this);
 	}
 
 	componentDidMount() {
@@ -23,6 +24,26 @@ class Welcome extends React.Component {
 
 	componentWillUnmount() {
 		this.nv.removeEventListener('keypress', this.handleKeyPress);
+	}
+
+	handleClick(row, column, direction) {
+		if (row) {
+			if (row === 1) {
+				if (direction === 'left') {
+					this.spinTopLayerLeft();
+				} else {
+					this.spinTopLayerRight();
+				}
+			} else {
+				if (direction === 'left') {
+					this.spinBottomLayerLeft();
+				} else {
+					this.spinBottomLayerRight();
+				}
+			}
+		} else {
+			console.log('column ', direction)
+		}
 	}
 
 	handleKeyPress(event) {
@@ -53,6 +74,29 @@ class Welcome extends React.Component {
 
 	matrixLeft(face) {
   		return [face[2], face[5], face[8], face[1], face[4], face[7], face[0], face[3], face[6]];
+	}
+
+	spinTopLayerLeft(direction) {
+		let { front, left, right, back, top, bottom } = this.state;
+		var frontChunk = front.splice(0,3);
+		front.unshift(...right.splice(0,3));
+	    right.unshift(...back.splice(0,3));
+	    back.unshift(...left.splice(0,3));
+	    left.unshift(...frontChunk);
+	    top = this.matrixRight(top);
+	    this.setState({ front, top, bottom, left, right });
+	}
+
+	spinTopLayerRight() {
+		let { front, left, right, back } = this.state;
+	}
+
+	spinBottomLayerLeft() {
+		let { front, left, right, back } = this.state;
+	}
+
+	spinBottomLayerRight() {
+		let { front, left, right, back } = this.state;
 	}
 
 	move(row, column, direction) {
@@ -161,6 +205,8 @@ class Welcome extends React.Component {
 	      }
 	    }
 	  }
+	  let firstRotation = this.matrixLeft(back);
+	  back = this.matrixLeft(firstRotation);
 	  this.setState({ front, back, top, bottom, left, right });
 	}
 
@@ -174,14 +220,14 @@ class Welcome extends React.Component {
 		return (
 			<div className="welcome" ref={elem => this.nv = elem} onKeyDown={this.handleKeyPress} tabIndex="0">
 				<div className="buttons-container">
-					<div className="move-button left1" onClick={() => this.move(1, null, 'left')}>&larr;</div>
-					<div className="move-button right1" onClick={() => this.move(1, null, 'right')}>&rarr;</div>
-					<div className="move-button up1" onClick={() => this.move(null, 1, 'up')}>&uarr;</div>
-					<div className="move-button up3" onClick={() => this.move(null, 3, 'up')}>&uarr;</div>
-					<div className="move-button left3" onClick={() => this.move(3, null, 'left')}>&larr;</div>
-					<div className="move-button right3" onClick={() => this.move(3, null, 'right')}>&rarr;</div>
-					<div className="move-button down1" onClick={() => this.move(null, 1, 'down')}>&darr;</div>
-					<div className="move-button down3" onClick={() => this.move(null, 3, 'down')}>&darr;</div>
+					<div className="move-button left1" onClick={() => this.handleClick(1, null, 'left')}>&larr;</div>
+					<div className="move-button right1" onClick={() => this.handleClick(1, null, 'right')}>&rarr;</div>
+					<div className="move-button up1" onClick={() => this.handleClick(null, 1, 'up')}>&uarr;</div>
+					<div className="move-button up3" onClick={() => this.handleClick(null, 3, 'up')}>&uarr;</div>
+					<div className="move-button left3" onClick={() => this.handleClick(3, null, 'left')}>&larr;</div>
+					<div className="move-button right3" onClick={() => this.handleClick(3, null, 'right')}>&rarr;</div>
+					<div className="move-button down1" onClick={() => this.handleClick(null, 1, 'down')}>&darr;</div>
+					<div className="move-button down3" onClick={() => this.handleClick(null, 3, 'down')}>&darr;</div>
 					<section className="cube-container" >
 						<div id="cube">
 							<figure className="front">
