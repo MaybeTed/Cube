@@ -41,7 +41,19 @@ class Welcome extends React.Component {
 				}
 			}
 		} else {
-			console.log('column ', direction)
+			if (column === 1) {
+				if (direction === 'down') {
+					this.spinLeftLayerDown();
+				} else {
+					this.spinLeftLayerUp();
+				}
+			} else {
+				if (direction === 'down') {
+					this.spinRightLayerDown();
+				} else {
+					this.spinRightLayerUp();
+				}
+			}
 		}
 	}
 
@@ -117,6 +129,90 @@ class Welcome extends React.Component {
 	    right.push(...frontChunk);
 	    bottom = this.matrixLeft(bottom);
 	    this.setState({ front, left, right, back, bottom });
+	}
+
+	spinLeftLayerUp() {
+		let { front, top, back, bottom, left } = this.state;
+		var topChunk = front[0];
+	    var middleChunk = front[3];
+	    var bottomChunk = front[6];
+        front[0] = bottom[0];
+        front[3] = bottom[3];
+        front[6] = bottom[6];
+        bottom[0] = back[8];
+        bottom[3] = back[5];
+        bottom[6] = back[2];     
+        back[2] = top[6];
+        back[5] = top[3];
+        back[8] = top[0];
+        top[0] = topChunk;
+        top[3] = middleChunk;
+        top[6] = bottomChunk;
+        left = this.matrixLeft(left);
+        this.setState({ front, top, back, bottom, left });
+	}
+
+	spinLeftLayerDown() {
+		let { front, top, back, bottom, left } = this.state;
+		var topChunk = front[0];
+	    var middleChunk = front[3];
+	    var bottomChunk = front[6];
+        front[0] = top[0];
+        front[3] = top[3];
+        front[6] = top[6];
+        top[0] = back[8];
+        top[3] = back[5];
+        top[6] = back[2];     
+        back[2] = bottom[6];
+        back[5] = bottom[3];
+        back[8] = bottom[0];
+        bottom[0] = topChunk;
+        bottom[3] = middleChunk;
+        bottom[6] = bottomChunk;
+        left = this.matrixRight(left);
+        this.setState({ front, top, back, bottom, left });
+	}
+
+	spinRightLayerUp() {
+		let { front, top, back, bottom, right } = this.state;
+		var topChunk = front[2];
+	    var middleChunk = front[5];
+	    var bottomChunk = front[8];
+        front[2] = bottom[2];
+        front[5] = bottom[5];
+        front[8] = bottom[8];
+        bottom[2] = back[6];
+        bottom[5] = back[3];
+        bottom[8] = back[0];
+        back[0] = top[8];
+        back[3] = top[5];
+        back[6] = top[2];
+        top[2] = topChunk;
+        top[5] = middleChunk;
+        top[8] = bottomChunk;
+        right = this.matrixRight(right);
+        this.setState({ front, top, back, bottom, right });
+	}
+
+	spinRightLayerDown() {
+		let { front, top, back, bottom, right } = this.state;
+		var topChunk = front[2];
+	    var middleChunk = front[5];
+	    var bottomChunk = front[8];
+	    front[2] =top[2];
+        front[5] =top[5];
+        front[8] =top[8];
+        top[2] = back[6];
+        top[5] = back[3];
+        top[8] = back[0];
+        back[0] = bottom[8];
+        back[3] = bottom[5];
+        back[6] = bottom[2];
+        bottom[2] = topChunk;
+        bottom[5] = middleChunk;
+        bottom[8] = bottomChunk;
+        right = this.matrixLeft(right);
+        this.setState({ front, top, back, bottom, right });
 	}
 
 	move(row, column, direction) {
