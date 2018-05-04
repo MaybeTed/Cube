@@ -15,8 +15,6 @@ class Welcome extends React.Component {
 		}
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.print = this.print.bind(this);
-		this.spinTopLayerLeft = this.spinTopLayerLeft.bind(this);
-		this.spinTopLayerRight = this.spinTopLayerRight.bind(this);
 	}
 
 	componentDidMount() {
@@ -101,6 +99,13 @@ class Welcome extends React.Component {
 
 	spinBottomLayerLeft() {
 		let { front, left, right, back, bottom } = this.state;
+		var frontChunk = front.splice(6, 9);
+		front.push(...right.splice(6,9));
+	    right.push(...back.splice(6,9));
+	    back.push(...left.splice(6,9));
+	    left.push(...frontChunk);
+	    bottom = this.matrixRight(bottom);
+	    this.setState({ front, left, right, back, bottom });
 	}
 
 	spinBottomLayerRight() {
