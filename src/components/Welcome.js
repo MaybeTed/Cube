@@ -110,6 +110,13 @@ class Welcome extends React.Component {
 
 	spinBottomLayerRight() {
 		let { front, left, right, back, bottom } = this.state;
+		var frontChunk = front.splice(6, 9);
+		front.push(...left.splice(6,9));
+	    left.push(...back.splice(6,9));
+	    back.push(...right.splice(6,9));
+	    right.push(...frontChunk);
+	    bottom = this.matrixLeft(bottom);
+	    this.setState({ front, left, right, back, bottom });
 	}
 
 	move(row, column, direction) {
