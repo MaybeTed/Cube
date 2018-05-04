@@ -16,6 +16,7 @@ class Welcome extends React.Component {
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.print = this.print.bind(this);
 		this.spinTopLayerLeft = this.spinTopLayerLeft.bind(this);
+		this.spinTopLayerRight = this.spinTopLayerRight.bind(this);
 	}
 
 	componentDidMount() {
@@ -77,26 +78,33 @@ class Welcome extends React.Component {
 	}
 
 	spinTopLayerLeft(direction) {
-		let { front, left, right, back, top, bottom } = this.state;
+		let { front, left, right, back, top } = this.state;
 		var frontChunk = front.splice(0,3);
 		front.unshift(...right.splice(0,3));
 	    right.unshift(...back.splice(0,3));
 	    back.unshift(...left.splice(0,3));
 	    left.unshift(...frontChunk);
 	    top = this.matrixRight(top);
-	    this.setState({ front, top, bottom, left, right });
+	    this.setState({ front, top, left, right, back });
 	}
 
 	spinTopLayerRight() {
-		let { front, left, right, back } = this.state;
+		let { front, left, right, back, top } = this.state;
+		var frontChunk = front.splice(0,3);
+		front.unshift(...left.splice(0,3));
+	    left.unshift(...back.splice(0,3));
+	    back.unshift(...right.splice(0,3));
+	    right.unshift(...frontChunk);
+	    top = this.matrixLeft(top);
+	    this.setState({ front, left, right, back, top });
 	}
 
 	spinBottomLayerLeft() {
-		let { front, left, right, back } = this.state;
+		let { front, left, right, back, bottom } = this.state;
 	}
 
 	spinBottomLayerRight() {
-		let { front, left, right, back } = this.state;
+		let { front, left, right, back, bottom } = this.state;
 	}
 
 	move(row, column, direction) {
