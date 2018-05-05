@@ -60,6 +60,7 @@ class Welcome extends React.Component {
 	handleKeyPress(event) {
 		let x = this.state.xAngle;
 		let y = this.state.yAngle;
+		var faces;
 		switch(event.keyCode) {
 			case 37: // left
 			  y -= 90;
@@ -76,7 +77,10 @@ class Welcome extends React.Component {
 		};
 		const cube = document.getElementById('cube');
 		cube.style.webkitTransform = "rotateX(" + x + "deg) rotateY(" + y + "deg)";
-		this.setState({ xAngle: x, yAngle: y });
+		this.setState({
+			xAngle: x,
+			yAngle: y
+		});
 	}
 
 	matrixRight(face) {
@@ -213,117 +217,6 @@ class Welcome extends React.Component {
         bottom[8] = bottomChunk;
         right = this.matrixLeft(right);
         this.setState({ front, top, back, bottom, right });
-	}
-
-	move(row, column, direction) {
-	  let { front, back, top, bottom, left, right } = this.state;
-
-	  // if row isnt null shift a row left or right
-	  if (row !== null) {
-	    if (row === 1) {
-	      var frontChunk = front.splice(0,3);
-	      if (direction === 'left') {
-	        front.unshift(...right.splice(0,3));
-	        right.unshift(...back.splice(0,3));
-	        back.unshift(...left.splice(0,3));
-	        left.unshift(...frontChunk);
-	        top = this.matrixRight(top);
-	      } else {
-	        front.unshift(...left.splice(0,3));
-	        left.unshift(...back.splice(0,3));
-	        back.unshift(...right.splice(0,3));
-	        right.unshift(...frontChunk);
-	        top = this.matrixLeft(top);
-	      }
-	    } else {
-	      var frontChunk = front.splice(6, 9);
-	      if (direction === 'left') {
-	        front.push(...right.splice(6,9));
-	        right.push(...back.splice(6,9));
-	        back.push(...left.splice(6,9));
-	        left.push(...frontChunk);
-	        bottom = this.matrixRight(bottom);
-	      } else {
-	        front.push(...left.splice(6,9));
-	        left.push(...back.splice(6,9));
-	        back.push(...right.splice(6,9));
-	        right.push(...frontChunk);
-	        bottom = this.matrixLeft(bottom);
-	      }
-	    }
-	  } else {
-	    if (column === 1) {
-	      var topChunk = front[0];
-	      var middleChunk = front[3];
-	      var bottomChunk = front[6];
-	      if (direction === 'up') {
-	        front[0] = bottom[0];
-	        front[3] = bottom[3];
-	        front[6] = bottom[6];
-	        bottom[0] = back[8];
-	        bottom[3] = back[5];
-	        bottom[6] = back[2];     
-	        back[2] = top[6];
-	        back[5] = top[3];
-	        back[8] = top[0];
-	        top[0] = topChunk;
-	        top[3] = middleChunk;
-	        top[6] = bottomChunk;
-	        left = this.matrixLeft(left);
-	      } else {
-	        front[0] = top[0];
-	        front[3] = top[3];
-	        front[6] = top[6];
-	        top[0] = back[8];
-	        top[3] = back[5];
-	        top[6] = back[2];     
-	        back[2] = bottom[6];
-	        back[5] = bottom[3];
-	        back[8] = bottom[0];
-	        bottom[0] = topChunk;
-	        bottom[3] = middleChunk;
-	        bottom[6] = bottomChunk;
-	        left = this.matrixRight(left);
-	      }
-	    } else {
-	      // if column = 3
-	      var topChunk = front[2];
-	      var middleChunk = front[5];
-	      var bottomChunk = front[8];
-	      if (direction === 'up') {
-	        front[2] = bottom[2];
-	        front[5] = bottom[5];
-	        front[8] = bottom[8];
-	        bottom[2] = back[6];
-	        bottom[5] = back[3];
-	        bottom[8] = back[0];
-	        back[0] = top[8];
-	        back[3] = top[5];
-	        back[6] = top[2];
-	        top[2] = topChunk;
-	        top[5] = middleChunk;
-	        top[8] = bottomChunk;
-	        right = this.matrixRight(right)
-	      } else {
-	        front[2] =top[2];
-	        front[5] =top[5];
-	        front[8] =top[8];
-	        top[2] = back[6];
-	        top[5] = back[3];
-	        top[8] = back[0];
-	        back[0] = bottom[8];
-	        back[3] = bottom[5];
-	        back[6] = bottom[2];
-	        bottom[2] = topChunk;
-	        bottom[5] = middleChunk;
-	        bottom[8] = bottomChunk;
-	        right = this.matrixLeft(right);
-	      }
-	    }
-	  }
-	  let firstRotation = this.matrixLeft(back);
-	  back = this.matrixLeft(firstRotation);
-	  this.setState({ front, back, top, bottom, left, right });
 	}
 
 	print(face) {
