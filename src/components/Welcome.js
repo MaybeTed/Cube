@@ -135,6 +135,22 @@ class Welcome extends React.Component {
 
 	rotateFrontCounterClockwise() {
 		console.log('rotateFrontCounterClockwise')
+		let { front, top, bottom, left, right } = this.state;
+		let topChunk = top.splice(6, 9);
+		top[6] = right[0];
+		top[7] = right[3];
+		top[8] = right[6];
+		right[0] = bottom[2];
+		right[3] = bottom[1];
+		right[6] = bottom[0];
+		bottom[0] = left[2];
+		bottom[1] = left[5];
+		bottom[2] = left[8];
+		left[2] = topChunk[2];
+		left[5] = topChunk[1];
+		left[8] = topChunk[0];
+		front = this.matrixLeft(front);
+		this.setState({ front, top, bottom, left, right });	
 	}
 
 	spinTopLayerLeft(direction) {
