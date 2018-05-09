@@ -237,6 +237,14 @@ class Welcome extends React.Component {
 					<div className="move-button right3" onClick={() => this.handleClick(3, null, 'right')}>&rarr;</div>
 					<div className="move-button down1" onClick={() => this.handleClick(null, 1, 'down')}>&darr;</div>
 					<div className="move-button down3" onClick={() => this.handleClick(null, 3, 'down')}>&darr;</div>
+					<div className="move-button counter-clockwise" onClick={() => this.handleClick()}>&larr;</div>
+					<div className="move-button clockwise" onClick={() => this.handleClick()}>&rarr;</div>
+					<div className="move-button back-left" onClick={() => this.handleClick()}>&larr;</div>
+					<div className="move-button back-right" onClick={() => this.handleClick()}>&rarr;</div>
+					<p className="button-text counter-clockwise-text">Front</p>
+					<p className="button-text clockwise-text">Front</p>
+					<p className="button-text back-left-text">Back</p>
+					<p className="button-text back-right-text">Back</p>
 					<section className="cube-container" >
 						<div id="cube">
 							<figure className="front">
