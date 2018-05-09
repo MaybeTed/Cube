@@ -158,6 +158,31 @@ figure div {
 	background: #fcf6ed;
 }
 
+.button-text {
+	position: absolute;
+	display: block;
+}
+
+.counter-clockwise-text {
+	top: 186px;
+	left: 38px;
+}
+
+.clockwise-text {
+	top: 186px;
+	left: 333px;
+}
+
+.back-left-text {
+	top: 545px;
+	left: 38px;
+}
+
+.back-right-text {
+	top: 545px;
+	left: 333px;
+}
+
 /* position of move buttons */
 .left1 {
 	top: 305px;
@@ -197,6 +222,31 @@ figure div {
 	top: 560px;
 	left: 255px;
 }
+
+.counter-clockwise {
+	top: 230px;
+	left: 35px;
+	transform: rotate(-45deg);
+}
+
+.clockwise {
+	top: 230px;
+	left: 330px;
+	transform: rotate(45deg);
+}
+
+.back-left {
+	top: 515px;
+	left: 35px;
+	transform: rotate(45deg);
+}
+
+.back-right {
+	top: 515px;
+	left: 330px;
+	transform: rotate(-45deg);
+}
+
 
 /****************
       About    */
