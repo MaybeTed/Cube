@@ -120,7 +120,7 @@ a {
 .bottom { background: red; }
 
 #cube .front { transform: rotateY( 0deg ) translateZ( 100px ); }
-#cube .back { transform: rotateX( 180deg ) translateZ( 100px ); }
+#cube .back { transform: rotateX(180deg) rotate(180deg) translateZ( 100px ); }
 #cube .right { transform: rotateY( 90deg ) translateZ( 100px ); }
 #cube .left { transform: rotateY( -90deg ) translateZ( 100px ); }
 #cube .top { transform: rotateX( 90deg ) translateZ( 100px ); }
