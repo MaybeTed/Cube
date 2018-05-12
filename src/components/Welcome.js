@@ -105,12 +105,44 @@ class Welcome extends React.Component {
   		return [face[2], face[5], face[8], face[1], face[4], face[7], face[0], face[3], face[6]];
 	}
 
-	rotateBackClockwise() {
-		console.log('rotateBackClockwise')
-	}
-
 	rotateBackCounterClockwise() {
 		console.log('rotateBackCounterClockwise')
+		let { back, top, bottom, left, right } = this.state;
+		let topChunk = top.slice(0, 3);
+		top[0] = right[2];
+		top[1] = right[5];
+		top[2] = right[8];
+		right[2] = bottom[8];
+		right[5] = bottom[7];
+		right[8] = bottom[6];
+		bottom[6] = left[0];
+		bottom[7] = left[3];
+		bottom[8] = left[6];
+		left[0] = topChunk[2];
+		left[3] = topChunk[1];
+		left[6] = topChunk[0];
+		back = this.matrixRight(back);
+		this.setState({ back, top, bottom, left, right });
+	}
+
+	rotateBackClockwise() {
+		console.log('rotateBackClockwise')
+		let { back, top, bottom, left, right } = this.state;
+		let topChunk = top.slice(0, 3);
+		top[0] = left[6];
+		top[1] = left[3];
+		top[2] = left[0];
+		left[0] = bottom[6];
+		left[3] = bottom[7];
+		left[6] = bottom[8];
+		bottom[6] = right[8];
+		bottom[7] = right[5];
+		bottom[8] = right[2];
+		right[2] = topChunk[0];
+		right[5] = topChunk[1];
+		right[8] = topChunk[2];
+		back = this.matrixLeft(back);
+		this.setState({ back, top, bottom, left, right });
 	}
 
 	rotateFrontClockwise() {
@@ -193,7 +225,7 @@ class Welcome extends React.Component {
 	    left.push(...back.splice(6,9));
 	    back.push(...right.splice(6,9));
 	    right.push(...frontChunk);
-	    bottom = this.matrixLeft(bottom);
+	    bottom = this.matrixRight(bottom);
 	    this.setState({ front, left, right, back, bottom });
 	}
 
