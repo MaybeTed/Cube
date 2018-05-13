@@ -214,7 +214,7 @@ class Welcome extends React.Component {
 	    right.push(...back.splice(6,9));
 	    back.push(...left.splice(6,9));
 	    left.push(...frontChunk);
-	    bottom = this.matrixRight(bottom);
+	    bottom = this.matrixLeft(bottom);
 	    this.setState({ front, left, right, back, bottom });
 	}
 
