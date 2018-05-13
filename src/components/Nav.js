@@ -12,7 +12,7 @@ class Nav extends React.Component {
 	render() {
 		return (
 			<div className="nav">
-				<Link to="/"><h1>Title</h1></Link>
+				<Link to="/"><h1>Cube</h1></Link>
 				<ul className="nav-links">
 					<Link to="/about" ><li>About</li></Link>
 					<Link to="/register" ><li>Register</li></Link>
