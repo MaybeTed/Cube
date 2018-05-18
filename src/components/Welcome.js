@@ -1,4 +1,5 @@
 import React from 'react';
+import Game from './Game';
 
 class Welcome extends React.Component {
 	constructor() {
@@ -323,6 +324,7 @@ class Welcome extends React.Component {
 		return (
 			<div className="welcome" ref={elem => this.nv = elem} onKeyDown={this.handleKeyPress} tabIndex="0">
 				<div className="buttons-container">
+					<Game />
 					<div className="move-button left1" onClick={() => this.handleClick(1, null, null, 'left')}>&larr;</div>
 					<div className="move-button right1" onClick={() => this.handleClick(1, null, null, 'right')}>&rarr;</div>
 					<div className="move-button up1" onClick={() => this.handleClick(null, 1, null, 'up')}>&uarr;</div>

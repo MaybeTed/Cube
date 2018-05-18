@@ -248,6 +248,25 @@ figure div {
 	transform: rotate(-45deg);
 }
 
+/****************
+      Game     */
+
+.start-game-button {
+	position: absolute;
+	left: 50%;
+	top: 85px;
+	transform: translateX(-50%);
+	width: 140px;
+	padding: 10px 0;
+	text-align: center;
+	border: 1px solid black;
+	cursor: pointer;
+}
+
+.start-game-button:hover {
+	background: #fcf6ed;
+}
+
 
 /****************
       About    */
