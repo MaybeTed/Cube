@@ -16,6 +16,7 @@ class Welcome extends React.Component {
 		}
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.print = this.print.bind(this);
+		this.shuffleColors = this.shuffleColors.bind(this);
 	}
 
 	componentDidMount() {
@@ -314,6 +315,16 @@ class Welcome extends React.Component {
         this.setState({ front, top, back, bottom, right });
 	}
 
+	shuffleColors() {
+		let front = ['green', 'white', 'yellow', 'orange', 'white', 'red', 'red', 'blue', 'green'];
+		let top = ['red', 'green', 'white', 'white', 'red', 'orange', 'white', 'green', 'red'];
+		let bottom = ['white', 'yellow', 'red', 'yellow', 'orange', 'yellow', 'yellow', 'orange', 'green'];
+		let left = ['yellow', 'blue', 'orange', 'blue', 'blue', 'green', 'orange', 'orange', 'blue'];
+		let right = ['blue', 'white', 'blue', 'white', 'green', 'red', 'white', 'green', 'yellow'];
+		let back = ['orange', 'red', 'green', 'yellow', 'yellow', 'red', 'orange', 'blue', 'blue'];
+		this.setState({ front, top, bottom, left, right, back });
+	}
+
 	print(face) {
 		return this.state[face].map((color, i) => {
 			return <div key={i} style={{'background': color}} />
@@ -324,7 +335,7 @@ class Welcome extends React.Component {
 		return (
 			<div className="welcome" ref={elem => this.nv = elem} onKeyDown={this.handleKeyPress} tabIndex="0">
 				<div className="buttons-container">
-					<Game />
+					<Game shuffleColors={this.shuffleColors} />
 					<div className="move-button left1" onClick={() => this.handleClick(1, null, null, 'left')}>&larr;</div>
 					<div className="move-button right1" onClick={() => this.handleClick(1, null, null, 'right')}>&rarr;</div>
 					<div className="move-button up1" onClick={() => this.handleClick(null, 1, null, 'up')}>&uarr;</div>

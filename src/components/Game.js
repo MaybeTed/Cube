@@ -11,6 +11,7 @@ class Game extends React.Component {
 	}
 
 	handleClick() {
+		this.props.shuffleColors();
 		this.setState({ gameStarted: !this.state.gameStarted });
 	}
 
