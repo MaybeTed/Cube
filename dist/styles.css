@@ -267,6 +267,23 @@ figure div {
 	background: #fcf6ed;
 }
 
+/****************
+      Timer    */
+
+.timer-container {
+	position: absolute;
+	left: 50%;
+	transform: translateX( -50% );
+	top: 85px;
+}
+
+.number-container {
+	padding: 15px 15px;
+	text-align: center;
+	border: 1px solid black;
+	display: inline-block;
+}
+
 
 /****************
       About    */
