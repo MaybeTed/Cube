@@ -30,7 +30,10 @@ class Welcome extends React.Component {
 	determineColor(xAngle, yAngle) {
 	  const x = xAngle % 360;
 	  const y = yAngle % 360;
-	  if ((x === 0 && y === 0) || (Math.abs(x) === 180 && Math.abs(y) === 180)) {
+	  if (x === 0 && y === 0) {
+
+	  	console.log('white');
+	  } else if (Math.abs(x) === 180 && Math.abs(y) === 180) {
 	    console.log('white');
 	  } else if ((x === 0 && (y === 90 || y === -270)) || (Math.abs(x) === 180 && (y === -90 || y === 270))) {
 	    console.log('blue');
@@ -45,50 +48,49 @@ class Welcome extends React.Component {
 	  }
 	}
 
-	handleClick(row, column, face, direction) {
-		if (row) {
-			if (row === 1) {
-				if (direction === 'left') {
-					this.spinTopLayerLeft();
-				} else {
-					this.spinTopLayerRight();
-				}
-			} else {
-				if (direction === 'left') {
-					this.spinBottomLayerLeft();
-				} else {
-					this.spinBottomLayerRight();
-				}
-			}
-		} else if (column) {
-			if (column === 1) {
-				if (direction === 'down') {
-					this.spinLeftLayerDown();
-				} else {
-					this.spinLeftLayerUp();
-				}
-			} else {
-				if (direction === 'down') {
-					this.spinRightLayerDown();
-				} else {
-					this.spinRightLayerUp();
-				}
-			}
-		} else {
-			if (face === 1) {
-				if (direction === 'clockwise') {
-					this.rotateFrontClockwise();
-				} else {
-					this.rotateFrontCounterClockwise();
-				}
-			} else {
-				if (direction === 'clockwise') {
-					this.rotateBackClockwise();
-				} else {
-					this.rotateBackCounterClockwise();
-				}
+	handleClick(button) {
+		const x = this.state.xAngle % 360;
+		const y = this.state.yAngle % 360;
+		if (x === 0 && y === 0) {
+			// do nothing
+		} else if (Math.abs(x) === 180 && Math.abs(y) === 180) {
+			switch(button) {
+				case 1: button = 4; break;
+				case 2: button = 3; break;
+				case 3: button = 2; break;
+				case 4: button = 1; break;
+				case 5: button = 8; break;
+				case 6: button = 7; break;
+				case 7: button = 6; break;
+				case 8: button = 5; break;
 			}
 		}
+
+		if (button === 1) {
+			this.spinTopLayerLeft();
+		} else if (button === 2) {
+			this.spinTopLayerRight();
+		} else if (button === 3) {
+			this.spinBottomLayerLeft();
+		} else if (button === 4) {
+			this.spinBottomLayerRight();
+		} else if (button === 5) {
+			this.spinLeftLayerUp();
+		} else if (button === 6) {
+			this.spinLeftLayerDown();
+		} else if (button === 7) {
+			this.spinRightLayerUp();
+		} else if (button === 8) {
+			this.spinRightLayerDown();
+		} else if (button === 9) {
+			this.rotateFrontCounterClockwise();
+		} else if (button === 10) {
+			this.rotateFrontClockwise();
+		} else if (button === 11) {
+			this.rotateBackClockwise();
+		} else if (button === 12) {
+			this.rotateBackCounterClockwise();
+		} 
 	}
 
 	handleKeyPress(event) {
@@ -357,18 +359,18 @@ class Welcome extends React.Component {
 			<div className="welcome" ref={elem => this.nv = elem} onKeyDown={this.handleKeyPress} tabIndex="0">
 				<div className="buttons-container">
 					<Game shuffleColors={this.shuffleColors} />
-					<div className="move-button left1" onClick={() => this.handleClick(1, null, null, 'left')}>&larr;</div>
-					<div className="move-button right1" onClick={() => this.handleClick(1, null, null, 'right')}>&rarr;</div>
-					<div className="move-button up1" onClick={() => this.handleClick(null, 1, null, 'up')}>&uarr;</div>
-					<div className="move-button up3" onClick={() => this.handleClick(null, 3, null, 'up')}>&uarr;</div>
-					<div className="move-button left3" onClick={() => this.handleClick(3, null, null, 'left')}>&larr;</div>
-					<div className="move-button right3" onClick={() => this.handleClick(3, null, null, 'right')}>&rarr;</div>
-					<div className="move-button down1" onClick={() => this.handleClick(null, 1, null, 'down')}>&darr;</div>
-					<div className="move-button down3" onClick={() => this.handleClick(null, 3, null, 'down')}>&darr;</div>
-					<div className="move-button counter-clockwise" onClick={() => this.handleClick(null, null, 1, 'counterclockwise')}>&larr;</div>
-					<div className="move-button clockwise" onClick={() => this.handleClick(null, null, 1, 'clockwise')}>&rarr;</div>
-					<div className="move-button back-left" onClick={() => this.handleClick(null, null, 3, 'clockwise')}>&larr;</div>
-					<div className="move-button back-right" onClick={() => this.handleClick(null, null, 3, 'counterclockwise')}>&rarr;</div>
+					<div className="move-button left1" ref="1" onClick={() => this.handleClick(1)}>&larr;</div>
+					<div className="move-button right1" onClick={() => this.handleClick(2)}>&rarr;</div>
+					<div className="move-button up1" onClick={() => this.handleClick(5)}>&uarr;</div>
+					<div className="move-button up3" onClick={() => this.handleClick(7)}>&uarr;</div>
+					<div className="move-button left3" onClick={() => this.handleClick(3)}>&larr;</div>
+					<div className="move-button right3" onClick={() => this.handleClick(4)}>&rarr;</div>
+					<div className="move-button down1" onClick={() => this.handleClick(6)}>&darr;</div>
+					<div className="move-button down3" onClick={() => this.handleClick(8)}>&darr;</div>
+					<div className="move-button counter-clockwise" onClick={() => this.handleClick(9)}>&larr;</div>
+					<div className="move-button clockwise" onClick={() => this.handleClick(10)}>&rarr;</div>
+					<div className="move-button back-left" onClick={() => this.handleClick(11)}>&larr;</div>
+					<div className="move-button back-right" onClick={() => this.handleClick(12)}>&rarr;</div>
 					<p className="button-text counter-clockwise-text">Front</p>
 					<p className="button-text clockwise-text">Front</p>
 					<p className="button-text back-left-text">Back</p>
