@@ -52,8 +52,10 @@ class Welcome extends React.Component {
 		const x = this.state.xAngle % 360;
 		const y = this.state.yAngle % 360;
 		if (x === 0 && y === 0) {
+			// white, rightside up
 			// do nothing
 		} else if (Math.abs(x) === 180 && Math.abs(y) === 180) {
+			// white, upside down
 			switch(button) {
 				case 1: button = 4; break;
 				case 2: button = 3; break;
@@ -65,6 +67,7 @@ class Welcome extends React.Component {
 				case 8: button = 5; break;
 			}
 		} else if (x === 0 && (y === 90 || y === -270)) {
+			// blue, rightside up
 			switch(button) {
 				case 5: button = 11; break;
 				case 6: button = 12; break;
@@ -76,6 +79,7 @@ class Welcome extends React.Component {
 				case 12: button = 7; break;
 			}
 		} else if (Math.abs(x) === 180 && (y === -90 || y === 270)) {
+			// blue, upside down
 			switch(button) {
 				case 1: button = 4; break;
 				case 2: button = 3; break;
@@ -90,6 +94,103 @@ class Welcome extends React.Component {
 				case 11: button = 8; break;
 				case 12: button = 7; break;		
 			}
+		} else if (x === 0 && (y === -90 || y === 270)) {
+			// green, rightside up
+			switch(button) {
+				case 5: button = 9; break;
+				case 6: button = 10; break;
+				case 7: button = 12; break;
+				case 8: button = 11; break;
+				case 9: button = 8; break;
+				case 10: button = 7; break;
+				case 11: button = 5; break;
+				case 12: button = 6; break;
+			}
+		} else if (Math.abs(x) === 180 && (y === 90 || y === -270)) {
+			// green, upside down
+			switch(button) {
+				case 1: button = 4; break;
+				case 2: button = 3; break;
+				case 3: button = 2; break;
+				case 4: button = 1; break;
+				case 5: button = 11; break;
+				case 6: button = 12; break;
+				case 7: button = 10; break;
+				case 8: button = 9; break;
+				case 9: button = 8; break;
+				case 10: button = 7; break;
+				case 11: button = 5; break;
+				case 12: button = 6; break;
+			}
+		} else if (x === -90 || x === 270) {
+			// red
+			if (y === -90 || y === 270) {
+				// with blue on top
+				switch(button) {
+					case 1: button = 6; break;
+					case 2: button = 5; break;
+					case 3: button = 8; break;
+					case 4: button = 7; break;
+					case 5: button = 9; break;
+					case 6: button = 10; break;
+					case 7: button = 12; break;
+					case 8: button = 11; break;
+					case 9: button = 2; break;
+					case 10: button = 1; break;
+					case 11: button = 3; break;
+					case 12: button = 4; break;
+				}
+			} else if (y === 90 || y === -270) {
+				// with green on top
+				switch(button) {
+					case 1: button = 7; break;
+					case 2: button = 8; break;
+					case 3: button = 5; break;
+					case 4: button = 6; break;
+					case 5: button = 11; break;
+					case 6: button = 12; break;
+					case 7: button = 10; break;
+					case 8: button = 9; break;
+					case 9: button = 2; break;
+					case 10: button = 1; break;
+					case 11: button = 3; break;
+					case 12: button = 4; break;
+				}
+			} else if (Math.abs(y) === 180) {
+				// with white on top
+				switch(button) {
+					case 1: button = 10; break;
+					case 2: button = 9; break;
+					case 3: button = 11; break;
+					case 4: button = 12; break;
+					case 5: button = 8; break;
+					case 6: button = 7; break;
+					case 7: button = 6; break;
+					case 8: button = 5; break;
+					case 9: button = 2; break;
+					case 10: button = 1; break;
+					case 11: button = 3; break;
+					case 12: button = 4; break;
+				}
+			} else {
+				// with yellow on top
+				switch(button) {
+					case 1: button = 12; break;
+					case 2: button = 11; break;
+					case 3: button = 9; break;
+					case 4: button = 10; break;
+					case 9: button = 2; break;
+					case 10: button = 1; break;
+					case 11: button = 3; break;
+					case 12: button = 4; break;
+				}
+			}
+			// switch(button) {
+			// 	case 9: button = 2; break;
+			// 	case 10: button = 1; break;
+			// 	case 11: button = 3; break;
+			// 	case 12: button = 4; break;
+			// }
 		}
 
 		if (button === 1) {
