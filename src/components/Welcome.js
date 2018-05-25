@@ -185,12 +185,96 @@ class Welcome extends React.Component {
 					case 12: button = 4; break;
 				}
 			}
-			// switch(button) {
-			// 	case 9: button = 2; break;
-			// 	case 10: button = 1; break;
-			// 	case 11: button = 3; break;
-			// 	case 12: button = 4; break;
-			// }
+		} else if (x === 90 || x === -270) {
+			// orange
+			if (y === 90 || y === -270) {
+				// with blue on top
+				switch(button) {
+					case 1: button = 6; break;
+					case 2: button = 5; break;
+					case 3: button = 8; break;
+					case 4: button = 7; break;
+					case 5: button = 11; break;
+					case 6: button = 12; break;
+					case 7: button = 10; break;
+					case 8: button = 9; break;
+					case 9: button = 3; break;
+					case 10: button = 4; break;
+					case 11: button = 2; break;
+					case 12: button = 1; break;
+				}
+			} else if (y === -90 || y === 270) {
+				// with green on top
+				switch(button) {
+					case 1: button = 7; break;
+					case 2: button = 8; break;
+					case 3: button = 5; break;
+					case 4: button = 6; break;
+					case 5: button = 9; break;
+					case 6: button = 10; break;
+					case 7: button = 12; break;
+					case 8: button = 11; break;
+					case 9: button = 3; break;
+					case 10: button = 4; break;
+					case 11: button = 2; break;
+					case 12: button = 1; break;
+				}
+			} else if (Math.abs(y) === 180) {
+				// with yellow on top
+				switch(button) {
+					case 1: button = 12; break;
+					case 2: button = 11; break;
+					case 3: button = 9; break;
+					case 4: button = 10; break;
+					case 5: button = 8; break;
+					case 6: button = 7; break;
+					case 7: button = 6; break;
+					case 8: button = 5; break;
+					case 9: button = 3; break;
+					case 10: button = 4; break;
+					case 11: button = 2; break;
+					case 12: button = 1; break;
+				}
+			} else {
+				// with white on top
+				switch(button) {
+					case 1: button = 10; break;
+					case 2: button = 9; break;
+					case 3: button = 11; break;
+					case 4: button = 12; break;
+					case 9: button = 3; break;
+					case 10: button = 4; break;
+					case 11: button = 2; break;
+					case 12: button = 1; break;
+				}
+			}
+		} else {
+			// yellow
+			if (x === 0 && y === 180) {
+				// with red on top
+				switch(button) {
+					case 5: button = 8; break;
+					case 6: button = 7; break;
+					case 7: button = 6; break;
+					case 8: button = 5; break;
+					case 9: button = 11; break;
+					case 10: button = 12; break;
+					case 11: button = 9; break;
+					case 12: button = 10; break;
+				}
+			} else {
+				// with orange on top
+				switch(button) {
+					case 1: button = 4; break;
+					case 2: button = 3; break;
+					case 3: button = 2; break;
+					case 4: button = 1; break;
+					case 9: button = 11; break;
+					case 10: button = 12; break;
+					case 11: button = 9; break;
+					case 12: button = 10; break;
+				}
+			}
 		}
 
 		if (button === 1) {
