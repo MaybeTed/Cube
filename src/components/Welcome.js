@@ -27,27 +27,6 @@ class Welcome extends React.Component {
 		this.nv.removeEventListener('keypress', this.handleKeyPress);
 	}
 
-	determineColor(xAngle, yAngle) {
-	  const x = xAngle % 360;
-	  const y = yAngle % 360;
-	  if (x === 0 && y === 0) {
-
-	  	console.log('white');
-	  } else if (Math.abs(x) === 180 && Math.abs(y) === 180) {
-	    console.log('white');
-	  } else if ((x === 0 && (y === 90 || y === -270)) || (Math.abs(x) === 180 && (y === -90 || y === 270))) {
-	    console.log('blue');
-	  } else if ((x === 0 && (y === -90 || y === 270)) || (Math.abs(x) === 180 && (y === 90 || y === -270))) {
-	    console.log('green');
-	  } else if (x === -90 || x === 270) {
-	    console.log('red');
-	  } else if (x === 90 || x === -270) {
-	    console.log('orange');
-	  } else {
-	    console.log('yellow')
-	  }
-	}
-
 	handleClick(button) {
 		const x = this.state.xAngle % 360;
 		const y = this.state.yAngle % 360;
@@ -322,9 +301,6 @@ class Welcome extends React.Component {
 			  x -= 90;
 			  break;
 		};
-		console.log('x: ', x);
-		console.log('y: ', y);
-		this.determineColor(x, y);
 		const cube = document.getElementById('cube');
 		cube.style.webkitTransform = "rotateX(" + x + "deg) rotateY(" + y + "deg)";
 		this.setState({
@@ -342,7 +318,6 @@ class Welcome extends React.Component {
 	}
 
 	rotateBackCounterClockwise() {
-		console.log('rotateBackCounterClockwise')
 		let { back, top, bottom, left, right } = this.state;
 		let topChunk = top.slice(0, 3);
 		top[0] = right[2];
@@ -362,7 +337,6 @@ class Welcome extends React.Component {
 	}
 
 	rotateBackClockwise() {
-		console.log('rotateBackClockwise')
 		let { back, top, bottom, left, right } = this.state;
 		let topChunk = top.slice(0, 3);
 		top[0] = left[6];
@@ -382,7 +356,6 @@ class Welcome extends React.Component {
 	}
 
 	rotateFrontClockwise() {
-		console.log('rotateFrontClockwise')
 		let { front, top, bottom, left, right } = this.state;
 		let topChunk = top.splice(6, 9);
 		top[6] = left[8];
@@ -402,7 +375,6 @@ class Welcome extends React.Component {
 	}
 
 	rotateFrontCounterClockwise() {
-		console.log('rotateFrontCounterClockwise')
 		let { front, top, bottom, left, right } = this.state;
 		let topChunk = top.splice(6, 9);
 		top[6] = right[0];
