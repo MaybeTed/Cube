@@ -30,6 +30,24 @@ a {
 	color: #565656;
 }
 
+table {
+	border-collapse: collapse;
+	width: 500px;
+	margin: auto;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+th {
+	height: 50px;
+}
+
+td {
+	text-align: center;
+}
+
 /****************
        Nav     */
 
@@ -286,10 +304,16 @@ figure div {
 
 
 /****************
-      About    */
+   Leaderboard  */
 
-.about {
-	margin-top: 60px;
+.leaderboard {
+	margin-top: 150px;
+}
+
+.leaderboard h3 {
+	width: 140px;
+	margin: auto;
+	margin-bottom: 55px;
 }
 
 /****************
