@@ -5,7 +5,13 @@ class Nav extends React.Component {
 	constructor() {
 		super();
 		this.state = {
+			winners: []
+		}
+	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps && nextProps.winners) {
+			this.setState({ winners: nextProps.winners });
 		}
 	}
 
@@ -14,9 +20,11 @@ class Nav extends React.Component {
 			<div className="nav">
 				<Link to="/"><h1>Cube</h1></Link>
 				<ul className="nav-links">
-					<Link to="/about" ><li>About</li></Link>
-					<Link to="/register" ><li>Register</li></Link>
-					<Link to="/login" ><li>Login</li></Link>
+					{this.state.winners.length ? 
+					<Link to="/leaderboard" ><li>Winners</li></Link>
+					:
+					null
+					}
 				</ul>
 			</div>
 		)
