@@ -5,6 +5,7 @@ class Welcome extends React.Component {
 	constructor() {
 		super();
 		this.state = {
+			win: false,
 			xAngle: 0,
 			yAngle: 0,
 			front: ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white'],
@@ -27,50 +28,276 @@ class Welcome extends React.Component {
 		this.nv.removeEventListener('keypress', this.handleKeyPress);
 	}
 
-	handleClick(row, column, face, direction) {
-		if (row) {
-			if (row === 1) {
-				if (direction === 'left') {
-					this.spinTopLayerLeft();
-				} else {
-					this.spinTopLayerRight();
+	checkForWin() {
+		const face = ['front', 'back', 'top', 'bottom', 'left', 'right'];
+		for (var i = 0; i < face.length; i++) {
+			let bool = this.state[face[i]].every((color, i, arr) => {
+				return color === arr[0];
+			});
+			if (!bool) {
+				return false;
+			}
+		}
+		this.setState({ win: true });
+		return true;
+	}
+
+	handleClick(button) {
+		const x = this.state.xAngle % 360;
+		const y = this.state.yAngle % 360;
+		if (x === 0 && y === 0) {
+			// white, rightside up
+			// do nothing
+		} else if (Math.abs(x) === 180 && Math.abs(y) === 180) {
+			// white, upside down
+			switch(button) {
+				case 1: button = 4; break;
+				case 2: button = 3; break;
+				case 3: button = 2; break;
+				case 4: button = 1; break;
+				case 5: button = 8; break;
+				case 6: button = 7; break;
+				case 7: button = 6; break;
+				case 8: button = 5; break;
+			}
+		} else if (x === 0 && (y === 90 || y === -270)) {
+			// blue, rightside up
+			switch(button) {
+				case 5: button = 11; break;
+				case 6: button = 12; break;
+				case 7: button = 10; break;
+				case 8: button = 9; break;
+				case 9: button = 5; break;
+				case 10: button = 6; break;
+				case 11: button = 8; break;
+				case 12: button = 7; break;
+			}
+		} else if (Math.abs(x) === 180 && (y === -90 || y === 270)) {
+			// blue, upside down
+			switch(button) {
+				case 1: button = 4; break;
+				case 2: button = 3; break;
+				case 3: button = 2; break;
+				case 4: button = 1; break;
+				case 5: button = 9; break;
+				case 6: button = 10; break;
+				case 7: button = 12; break;
+				case 8: button = 11; break;
+				case 9: button = 5; break;
+				case 10: button = 6; break;
+				case 11: button = 8; break;
+				case 12: button = 7; break;		
+			}
+		} else if (x === 0 && (y === -90 || y === 270)) {
+			// green, rightside up
+			switch(button) {
+				case 5: button = 9; break;
+				case 6: button = 10; break;
+				case 7: button = 12; break;
+				case 8: button = 11; break;
+				case 9: button = 8; break;
+				case 10: button = 7; break;
+				case 11: button = 5; break;
+				case 12: button = 6; break;
+			}
+		} else if (Math.abs(x) === 180 && (y === 90 || y === -270)) {
+			// green, upside down
+			switch(button) {
+				case 1: button = 4; break;
+				case 2: button = 3; break;
+				case 3: button = 2; break;
+				case 4: button = 1; break;
+				case 5: button = 11; break;
+				case 6: button = 12; break;
+				case 7: button = 10; break;
+				case 8: button = 9; break;
+				case 9: button = 8; break;
+				case 10: button = 7; break;
+				case 11: button = 5; break;
+				case 12: button = 6; break;
+			}
+		} else if (x === -90 || x === 270) {
+			// red
+			if (y === -90 || y === 270) {
+				// with blue on top
+				switch(button) {
+					case 1: button = 6; break;
+					case 2: button = 5; break;
+					case 3: button = 8; break;
+					case 4: button = 7; break;
+					case 5: button = 9; break;
+					case 6: button = 10; break;
+					case 7: button = 12; break;
+					case 8: button = 11; break;
+					case 9: button = 2; break;
+					case 10: button = 1; break;
+					case 11: button = 3; break;
+					case 12: button = 4; break;
+				}
+			} else if (y === 90 || y === -270) {
+				// with green on top
+				switch(button) {
+					case 1: button = 7; break;
+					case 2: button = 8; break;
+					case 3: button = 5; break;
+					case 4: button = 6; break;
+					case 5: button = 11; break;
+					case 6: button = 12; break;
+					case 7: button = 10; break;
+					case 8: button = 9; break;
+					case 9: button = 2; break;
+					case 10: button = 1; break;
+					case 11: button = 3; break;
+					case 12: button = 4; break;
+				}
+			} else if (Math.abs(y) === 180) {
+				// with white on top
+				switch(button) {
+					case 1: button = 10; break;
+					case 2: button = 9; break;
+					case 3: button = 11; break;
+					case 4: button = 12; break;
+					case 5: button = 8; break;
+					case 6: button = 7; break;
+					case 7: button = 6; break;
+					case 8: button = 5; break;
+					case 9: button = 2; break;
+					case 10: button = 1; break;
+					case 11: button = 3; break;
+					case 12: button = 4; break;
 				}
 			} else {
-				if (direction === 'left') {
-					this.spinBottomLayerLeft();
-				} else {
-					this.spinBottomLayerRight();
+				// with yellow on top
+				switch(button) {
+					case 1: button = 12; break;
+					case 2: button = 11; break;
+					case 3: button = 9; break;
+					case 4: button = 10; break;
+					case 9: button = 2; break;
+					case 10: button = 1; break;
+					case 11: button = 3; break;
+					case 12: button = 4; break;
 				}
 			}
-		} else if (column) {
-			if (column === 1) {
-				if (direction === 'down') {
-					this.spinLeftLayerDown();
-				} else {
-					this.spinLeftLayerUp();
+		} else if (x === 90 || x === -270) {
+			// orange
+			if (y === 90 || y === -270) {
+				// with blue on top
+				switch(button) {
+					case 1: button = 6; break;
+					case 2: button = 5; break;
+					case 3: button = 8; break;
+					case 4: button = 7; break;
+					case 5: button = 11; break;
+					case 6: button = 12; break;
+					case 7: button = 10; break;
+					case 8: button = 9; break;
+					case 9: button = 3; break;
+					case 10: button = 4; break;
+					case 11: button = 2; break;
+					case 12: button = 1; break;
+				}
+			} else if (y === -90 || y === 270) {
+				// with green on top
+				switch(button) {
+					case 1: button = 7; break;
+					case 2: button = 8; break;
+					case 3: button = 5; break;
+					case 4: button = 6; break;
+					case 5: button = 9; break;
+					case 6: button = 10; break;
+					case 7: button = 12; break;
+					case 8: button = 11; break;
+					case 9: button = 3; break;
+					case 10: button = 4; break;
+					case 11: button = 2; break;
+					case 12: button = 1; break;
+				}
+			} else if (Math.abs(y) === 180) {
+				// with yellow on top
+				switch(button) {
+					case 1: button = 12; break;
+					case 2: button = 11; break;
+					case 3: button = 9; break;
+					case 4: button = 10; break;
+					case 5: button = 8; break;
+					case 6: button = 7; break;
+					case 7: button = 6; break;
+					case 8: button = 5; break;
+					case 9: button = 3; break;
+					case 10: button = 4; break;
+					case 11: button = 2; break;
+					case 12: button = 1; break;
 				}
 			} else {
-				if (direction === 'down') {
-					this.spinRightLayerDown();
-				} else {
-					this.spinRightLayerUp();
+				// with white on top
+				switch(button) {
+					case 1: button = 10; break;
+					case 2: button = 9; break;
+					case 3: button = 11; break;
+					case 4: button = 12; break;
+					case 9: button = 3; break;
+					case 10: button = 4; break;
+					case 11: button = 2; break;
+					case 12: button = 1; break;
 				}
 			}
 		} else {
-			if (face === 1) {
-				if (direction === 'clockwise') {
-					this.rotateFrontClockwise();
-				} else {
-					this.rotateFrontCounterClockwise();
+			// yellow
+			if (x === 0 && y === 180) {
+				// with red on top
+				switch(button) {
+					case 5: button = 8; break;
+					case 6: button = 7; break;
+					case 7: button = 6; break;
+					case 8: button = 5; break;
+					case 9: button = 11; break;
+					case 10: button = 12; break;
+					case 11: button = 9; break;
+					case 12: button = 10; break;
 				}
 			} else {
-				if (direction === 'clockwise') {
-					this.rotateBackClockwise();
-				} else {
-					this.rotateBackCounterClockwise();
+				// with orange on top
+				switch(button) {
+					case 1: button = 4; break;
+					case 2: button = 3; break;
+					case 3: button = 2; break;
+					case 4: button = 1; break;
+					case 9: button = 11; break;
+					case 10: button = 12; break;
+					case 11: button = 9; break;
+					case 12: button = 10; break;
 				}
 			}
 		}
+
+		if (button === 1) {
+			this.spinTopLayerLeft();
+		} else if (button === 2) {
+			this.spinTopLayerRight();
+		} else if (button === 3) {
+			this.spinBottomLayerLeft();
+		} else if (button === 4) {
+			this.spinBottomLayerRight();
+		} else if (button === 5) {
+			this.spinLeftLayerUp();
+		} else if (button === 6) {
+			this.spinLeftLayerDown();
+		} else if (button === 7) {
+			this.spinRightLayerUp();
+		} else if (button === 8) {
+			this.spinRightLayerDown();
+		} else if (button === 9) {
+			this.rotateFrontCounterClockwise();
+		} else if (button === 10) {
+			this.rotateFrontClockwise();
+		} else if (button === 11) {
+			this.rotateBackClockwise();
+		} else if (button === 12) {
+			this.rotateBackCounterClockwise();
+		} 
+		
+		this.checkForWin();
 	}
 
 	handleKeyPress(event) {
@@ -108,7 +335,6 @@ class Welcome extends React.Component {
 	}
 
 	rotateBackCounterClockwise() {
-		console.log('rotateBackCounterClockwise')
 		let { back, top, bottom, left, right } = this.state;
 		let topChunk = top.slice(0, 3);
 		top[0] = right[2];
@@ -128,7 +354,6 @@ class Welcome extends React.Component {
 	}
 
 	rotateBackClockwise() {
-		console.log('rotateBackClockwise')
 		let { back, top, bottom, left, right } = this.state;
 		let topChunk = top.slice(0, 3);
 		top[0] = left[6];
@@ -148,7 +373,6 @@ class Welcome extends React.Component {
 	}
 
 	rotateFrontClockwise() {
-		console.log('rotateFrontClockwise')
 		let { front, top, bottom, left, right } = this.state;
 		let topChunk = top.splice(6, 9);
 		top[6] = left[8];
@@ -168,7 +392,6 @@ class Welcome extends React.Component {
 	}
 
 	rotateFrontCounterClockwise() {
-		console.log('rotateFrontCounterClockwise')
 		let { front, top, bottom, left, right } = this.state;
 		let topChunk = top.splice(6, 9);
 		top[6] = right[0];
@@ -322,7 +545,7 @@ class Welcome extends React.Component {
 		let left = ['yellow', 'blue', 'orange', 'blue', 'blue', 'green', 'orange', 'orange', 'blue'];
 		let right = ['blue', 'white', 'blue', 'white', 'green', 'red', 'white', 'green', 'yellow'];
 		let back = ['orange', 'red', 'green', 'yellow', 'yellow', 'red', 'orange', 'blue', 'blue'];
-		this.setState({ front, top, bottom, left, right, back });
+		this.setState({ front, top, bottom, left, right, back, win: false });
 	}
 
 	print(face) {
@@ -335,19 +558,19 @@ class Welcome extends React.Component {
 		return (
 			<div className="welcome" ref={elem => this.nv = elem} onKeyDown={this.handleKeyPress} tabIndex="0">
 				<div className="buttons-container">
-					<Game shuffleColors={this.shuffleColors} />
-					<div className="move-button left1" onClick={() => this.handleClick(1, null, null, 'left')}>&larr;</div>
-					<div className="move-button right1" onClick={() => this.handleClick(1, null, null, 'right')}>&rarr;</div>
-					<div className="move-button up1" onClick={() => this.handleClick(null, 1, null, 'up')}>&uarr;</div>
-					<div className="move-button up3" onClick={() => this.handleClick(null, 3, null, 'up')}>&uarr;</div>
-					<div className="move-button left3" onClick={() => this.handleClick(3, null, null, 'left')}>&larr;</div>
-					<div className="move-button right3" onClick={() => this.handleClick(3, null, null, 'right')}>&rarr;</div>
-					<div className="move-button down1" onClick={() => this.handleClick(null, 1, null, 'down')}>&darr;</div>
-					<div className="move-button down3" onClick={() => this.handleClick(null, 3, null, 'down')}>&darr;</div>
-					<div className="move-button counter-clockwise" onClick={() => this.handleClick(null, null, 1, 'counterclockwise')}>&larr;</div>
-					<div className="move-button clockwise" onClick={() => this.handleClick(null, null, 1, 'clockwise')}>&rarr;</div>
-					<div className="move-button back-left" onClick={() => this.handleClick(null, null, 3, 'clockwise')}>&larr;</div>
-					<div className="move-button back-right" onClick={() => this.handleClick(null, null, 3, 'counterclockwise')}>&rarr;</div>
+					<Game shuffleColors={this.shuffleColors} win={this.state.win} />
+					<div className="move-button left1" ref="1" onClick={() => this.handleClick(1)}>&larr;</div>
+					<div className="move-button right1" onClick={() => this.handleClick(2)}>&rarr;</div>
+					<div className="move-button up1" onClick={() => this.handleClick(5)}>&uarr;</div>
+					<div className="move-button up3" onClick={() => this.handleClick(7)}>&uarr;</div>
+					<div className="move-button left3" onClick={() => this.handleClick(3)}>&larr;</div>
+					<div className="move-button right3" onClick={() => this.handleClick(4)}>&rarr;</div>
+					<div className="move-button down1" onClick={() => this.handleClick(6)}>&darr;</div>
+					<div className="move-button down3" onClick={() => this.handleClick(8)}>&darr;</div>
+					<div className="move-button counter-clockwise" onClick={() => this.handleClick(9)}>&larr;</div>
+					<div className="move-button clockwise" onClick={() => this.handleClick(10)}>&rarr;</div>
+					<div className="move-button back-left" onClick={() => this.handleClick(11)}>&larr;</div>
+					<div className="move-button back-right" onClick={() => this.handleClick(12)}>&rarr;</div>
 					<p className="button-text counter-clockwise-text">Front</p>
 					<p className="button-text clockwise-text">Front</p>
 					<p className="button-text back-left-text">Back</p>

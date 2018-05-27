@@ -10,6 +10,12 @@ class Game extends React.Component {
 		this.handleClick = this.handleClick.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.win && this.state.gameStarted === true) {
+			console.log('YOU WIN')
+		}
+	}
+
 	handleClick() {
 		this.props.shuffleColors();
 		this.setState({ gameStarted: !this.state.gameStarted });
