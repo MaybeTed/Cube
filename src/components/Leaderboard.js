@@ -1,6 +1,6 @@
 import React from 'react';
 
-class About extends React.Component {
+class Leaderboard extends React.Component {
 	constructor () {
 		super();
 		this.state = {
@@ -11,10 +11,10 @@ class About extends React.Component {
 	render() {
 		return (
 			<div className="about">
-			  About
+			  Leaderboard
 			</div>
 		)
 	}
 }
 
-export default About;
+export default Leaderboard;
