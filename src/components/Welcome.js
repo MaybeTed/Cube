@@ -5,6 +5,7 @@ class Welcome extends React.Component {
 	constructor() {
 		super();
 		this.state = {
+			win: false,
 			xAngle: 0,
 			yAngle: 0,
 			front: ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white'],
@@ -25,6 +26,20 @@ class Welcome extends React.Component {
 
 	componentWillUnmount() {
 		this.nv.removeEventListener('keypress', this.handleKeyPress);
+	}
+
+	checkForWin() {
+		const face = ['front', 'back', 'top', 'bottom', 'left', 'right'];
+		for (var i = 0; i < face.length; i++) {
+			let bool = this.state[face[i]].every((color, i, arr) => {
+				return color === arr[0];
+			});
+			if (!bool) {
+				return false;
+			}
+		}
+		this.setState({ win: true });
+		return true;
 	}
 
 	handleClick(button) {
@@ -281,6 +296,8 @@ class Welcome extends React.Component {
 		} else if (button === 12) {
 			this.rotateBackCounterClockwise();
 		} 
+		
+		this.checkForWin();
 	}
 
 	handleKeyPress(event) {
@@ -528,7 +545,7 @@ class Welcome extends React.Component {
 		let left = ['yellow', 'blue', 'orange', 'blue', 'blue', 'green', 'orange', 'orange', 'blue'];
 		let right = ['blue', 'white', 'blue', 'white', 'green', 'red', 'white', 'green', 'yellow'];
 		let back = ['orange', 'red', 'green', 'yellow', 'yellow', 'red', 'orange', 'blue', 'blue'];
-		this.setState({ front, top, bottom, left, right, back });
+		this.setState({ front, top, bottom, left, right, back, win: false });
 	}
 
 	print(face) {
@@ -541,7 +558,7 @@ class Welcome extends React.Component {
 		return (
 			<div className="welcome" ref={elem => this.nv = elem} onKeyDown={this.handleKeyPress} tabIndex="0">
 				<div className="buttons-container">
-					<Game shuffleColors={this.shuffleColors} />
+					<Game shuffleColors={this.shuffleColors} win={this.state.win} />
 					<div className="move-button left1" ref="1" onClick={() => this.handleClick(1)}>&larr;</div>
 					<div className="move-button right1" onClick={() => this.handleClick(2)}>&rarr;</div>
 					<div className="move-button up1" onClick={() => this.handleClick(5)}>&uarr;</div>
