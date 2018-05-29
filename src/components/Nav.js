@@ -1,18 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Nav extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			winners: []
+			winners: [],
 		}
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps && nextProps.winners) {
-			this.setState({ winners: nextProps.winners });
-		}
+	componentDidMount() {
+		axios.get('/api/winners')
+			.then((response) => {
+				if (response.data.success) {
+					this.setState({
+						winners: response.data.winners,
+					});
+				}
+			})
 	}
 
 	render() {
