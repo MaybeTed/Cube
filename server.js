@@ -6,11 +6,12 @@ const mongoose = require('mongoose');
 const Winner = require('./db/schema');
 
 const port = process.env.port || '3000';
+const connection = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/cube';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/dist')));
 
-mongoose.connect('mongodb://localhost:27017/cube', (err) => {
+mongoose.connect(connection, (err) => {
 	if (err) {
 		console.log('Not connected to the database: ', err);
 	} else {
@@ -22,6 +23,7 @@ app.post('/api/new-winner', (req, res) => {
 	const winner = new Winner();
 	winner.name = req.body.name;
 	winner.time = req.body.time;
+	winner.seconds = req.body.seconds;
 	if (req.body.name === null || req.body.name === '') {
 		res.json({ success: false, message: 'No name was provided' });
 	} else {
@@ -36,8 +38,8 @@ app.post('/api/new-winner', (req, res) => {
 });
 
 app.get('/api/winners', (req, res) => {
-	Winner.find({}).exec(function(err, winners) {
-		if (err) throw err;
+	Winner.find({}).sort('seconds').exec(function(err, winners) {
+		if (err) console.log(err);
 
 		if (!winners) {
 			res.json({ success: false, message: 'Could not find any winners' });

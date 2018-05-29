@@ -1,12 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Nav extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-
+			winners: [],
 		}
+	}
+
+	componentDidMount() {
+		axios.get('/api/winners')
+			.then((response) => {
+				if (response.data.success) {
+					this.setState({
+						winners: response.data.winners,
+					});
+				}
+			})
 	}
 
 	render() {
@@ -14,9 +26,11 @@ class Nav extends React.Component {
 			<div className="nav">
 				<Link to="/"><h1>Cube</h1></Link>
 				<ul className="nav-links">
-					<Link to="/about" ><li>About</li></Link>
-					<Link to="/register" ><li>Register</li></Link>
-					<Link to="/login" ><li>Login</li></Link>
+					{this.state.winners.length ? 
+					<Link to="/leaderboard" ><li>Winners</li></Link>
+					:
+					null
+					}
 				</ul>
 			</div>
 		)
