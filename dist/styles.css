@@ -140,13 +140,6 @@ td {
 #cube .top { transform: rotateX( 90deg ) translateZ( 100px ); }
 #cube .bottom { transform: rotateX( -90deg ) translateZ( 100px ); }
 
-#cube.show-front  { transform: translateZ( -100px ) rotateY(    0deg ); }
-#cube.show-back   { transform: translateZ( -100px ) rotateX( -180deg ); }
-#cube.show-right  { transform: translateZ( -100px ) rotateY(  -90deg ); }
-#cube.show-left   { transform: translateZ( -100px ) rotateY(   90deg ); }
-#cube.show-top    { transform: translateZ( -100px ) rotateX(  -90deg ); }
-#cube.show-bottom { transform: translateZ( -100px ) rotateX(   90deg ); }
-
 #cube { transition: transform 1s; }
 
 figure div {
@@ -280,6 +273,14 @@ figure div {
 	background: #fcf6ed;
 }
 
+.winning-message {
+	position: absolute;
+	width: 300px;
+	text-align: center;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
 /****************
       Timer    */
 
@@ -287,7 +288,7 @@ figure div {
 	position: absolute;
 	left: 50%;
 	transform: translateX( -50% );
-	top: 85px;
+	top: 105px;
 }
 
 .number-container {
@@ -311,19 +312,6 @@ figure div {
 	margin-bottom: 55px;
 }
 
-/****************
-    Register   */
-
-.register {
-	margin-top: 60px;
-}
-
-/****************
-      Login    */
-
-.login {
-	margin-top: 60px;
-}
 
 
 
