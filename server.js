@@ -22,6 +22,7 @@ app.post('/api/new-winner', (req, res) => {
 	const winner = new Winner();
 	winner.name = req.body.name;
 	winner.time = req.body.time;
+	winner.seconds = req.body.seconds;
 	if (req.body.name === null || req.body.name === '') {
 		res.json({ success: false, message: 'No name was provided' });
 	} else {
@@ -37,7 +38,7 @@ app.post('/api/new-winner', (req, res) => {
 
 app.get('/api/winners', (req, res) => {
 	Winner.find({}).exec(function(err, winners) {
-		if (err) throw err;
+		if (err) console.log(err);
 
 		if (!winners) {
 			res.json({ success: false, message: 'Could not find any winners' });
