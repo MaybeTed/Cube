@@ -19,6 +19,16 @@ class Timer extends React.Component {
 		clearInterval(this.timer);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.win) {
+			clearInterval(this.timer);
+			let { sTens, sOnes, mTens, mOnes } = this.state;
+			let time = mTens + '' + mOnes + ':' + sTens + '' + sOnes;
+			let seconds = +(mTens + '' + mOnes) * 60 + +(sTens + '' + sOnes);
+			nextProps.afterWinning(time, seconds);
+		}
+	}
+
 	increaseTime() {
 		let { sTens, sOnes, mTens, mOnes } = this.state;
 		sOnes++;
