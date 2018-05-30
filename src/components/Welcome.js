@@ -244,7 +244,7 @@ class Welcome extends React.Component {
 			}
 		} else {
 			// yellow
-			if (x === 0 && y === 180) {
+			if (x === 0 && Math.abs(y) === 180) {
 				// with red on top
 				switch(button) {
 					case 5: button = 8; break;
@@ -318,6 +318,8 @@ class Welcome extends React.Component {
 			  x -= 90;
 			  break;
 		};
+		console.log('x: ', x);
+		console.log('y: ', y);
 		const cube = document.getElementById('cube');
 		cube.style.webkitTransform = "rotateX(" + x + "deg) rotateY(" + y + "deg)";
 		this.setState({
