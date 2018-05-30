@@ -1,7 +1,7 @@
 import React from 'react';
 import Game from './Game';
 
-class Welcome extends React.Component {
+class Cube extends React.Component {
 	constructor() {
 		super();
 		this.state = {
@@ -318,8 +318,6 @@ class Welcome extends React.Component {
 			  x -= 90;
 			  break;
 		};
-		console.log('x: ', x);
-		console.log('y: ', y);
 		const cube = document.getElementById('cube');
 		cube.style.webkitTransform = "rotateX(" + x + "deg) rotateY(" + y + "deg)";
 		this.setState({
@@ -605,4 +603,4 @@ class Welcome extends React.Component {
 	}
 }
 
-export default Welcome;
+export default Cube;

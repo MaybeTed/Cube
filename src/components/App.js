@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Nav from './Nav';
-import Welcome from './Welcome';
+import Cube from './Cube';
 import Leaderboard from './Leaderboard';
 
 class App extends React.Component {
@@ -10,7 +10,7 @@ class App extends React.Component {
 			<div>
 				<Nav />
 				<Switch>
-					<Route exact path="/" render={() => (<Welcome />)} />
+					<Route exact path="/" render={() => (<Cube />)} />
 					<Route path="/leaderboard" render={() => (<Leaderboard />)} />
 				</Switch>
 			</div>
