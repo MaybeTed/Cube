@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Winner = require('./db/schema');
 
-const port = process.env.port || '3000';
+const port = process.env.PORT || '3000';
 const connection = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/cube';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
