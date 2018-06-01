@@ -81,7 +81,7 @@ td {
 }
 
 /****************
-     Welcome   */
+      Cube     */
 
 .welcome {
 	margin-top: 60px;
@@ -252,6 +252,35 @@ figure div {
 	top: 515px;
 	left: 330px;
 	transform: rotate(-45deg);
+}
+
+.directions {
+	top: 10px;
+	left: 10px;
+	width: 300px;
+	border: 1px solid black;
+	background: lightgray;
+	position: relative;
+	font-size: 14px;
+	padding: 5px 10px;
+}
+
+.close-directions {
+	border: 1px solid black;
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	width: 10px;
+	height: 16px;
+	cursor: pointer;
+}
+
+.close-directions:hover {
+	background: white;
+}
+
+.close-directions p {
+	margin: 0;
 }
 
 /****************
