@@ -16,6 +16,7 @@ class Cube extends React.Component {
 			left: ['blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue'],
 			right: ['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green']
 		}
+		this.closeDirections = this.closeDirections.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.print = this.print.bind(this);
 		this.shuffleColors = this.shuffleColors.bind(this);
