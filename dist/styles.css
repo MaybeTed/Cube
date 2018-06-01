@@ -162,6 +162,10 @@ figure div {
 }
 
 .move-button:hover {
+	background: #fcf6ed;
+}
+
+.move-button:active {
 	background: gray;
 }
 
@@ -255,12 +259,12 @@ figure div {
 }
 
 .directions {
-	top: 10px;
+	top: 70px;
 	left: 10px;
 	width: 300px;
 	border: 1px solid black;
 	background: lightgray;
-	position: relative;
+	position: absolute;
 	font-size: 14px;
 	padding: 5px 10px;
 }
