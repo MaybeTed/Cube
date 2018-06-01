@@ -5,6 +5,7 @@ class Cube extends React.Component {
 	constructor() {
 		super();
 		this.state = {
+			directions: true,
 			win: false,
 			xAngle: 0,
 			yAngle: 0,
@@ -40,6 +41,10 @@ class Cube extends React.Component {
 		}
 		this.setState({ win: true });
 		return true;
+	}
+
+	closeDirections() {
+		this.setState({ directions: false });
 	}
 
 	handleClick(button) {
@@ -557,6 +562,14 @@ class Cube extends React.Component {
 	render() {
 		return (
 			<div className="welcome" ref={elem => this.nv = elem} onKeyDown={this.handleKeyPress} tabIndex="0">
+				{ this.state.directions ?
+					<div className="directions">
+						<p>Directions: Use the arrow keys on your keyboard to rotate the cube. If that doesn't work try clicking on the cube first and then using the arrow keys.</p>
+						<div className="close-directions" onClick={this.closeDirections}><p>X</p></div>
+					</div>
+					:
+					null
+				}
 				<div className="buttons-container">
 					<Game shuffleColors={this.shuffleColors} win={this.state.win} />
 					<div className="move-button left1" ref="1" onClick={() => this.handleClick(1)}>&larr;</div>
