@@ -92,7 +92,7 @@ td {
 
 .buttons-container {
 	position: relative;
-	border: 1px solid #eaf2ff;
+	border: 1px solid transparent;
 	width: 416px;
 	margin: auto;
 }
