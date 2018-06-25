@@ -23,11 +23,25 @@ class Cube extends React.Component {
 	}
 
 	componentDidMount() {
-		this.nv.addEventListener('keypress', this.handleKeyPress);
+		var self = this;
+		document.onkeydown = function(e) {
+		    e = e || window.event;
+		    switch(e.which || e.keyCode) {
+		    	case 37: self.handleKeyPress(37);
+		    	break;
+		    	case 38: self.handleKeyPress(38);
+		    	break;
+		    	case 39: self.handleKeyPress(39);
+		    	break;
+		    	case 40: self.handleKeyPress(40);
+		    	break;
+		    	default: return;
+		    }
+		}
 	}
 
 	componentWillUnmount() {
-		this.nv.removeEventListener('keypress', this.handleKeyPress);
+		document.onkeydown = null;
 	}
 
 	checkForWin() {
@@ -310,7 +324,8 @@ class Cube extends React.Component {
 		let x = this.state.xAngle;
 		let y = this.state.yAngle;
 		var faces;
-		switch(event.keyCode) {
+		//switch(event.keyCode) {
+		switch(event) {
 			case 37: // left
 			  y -= 90;
 			  break;
@@ -562,10 +577,10 @@ class Cube extends React.Component {
 
 	render() {
 		return (
-			<div className="welcome" ref={elem => this.nv = elem} onKeyDown={this.handleKeyPress} tabIndex="0">
+			<div className="welcome">
 				{ this.state.directions ?
 					<div className="directions">
-						<p>Directions: Use the arrow keys on your keyboard to rotate the cube. If that doesn't work try clicking on the cube first and then using the arrow keys.</p>
+						<p>Directions: Use the arrow keys on your keyboard to rotate the cube.</p>
 						<div className="close-directions" onClick={this.closeDirections}><p>X</p></div>
 					</div>
 					:
@@ -589,7 +604,7 @@ class Cube extends React.Component {
 					<p className="button-text clockwise-text">Front</p>
 					<p className="button-text back-left-text">Back</p>
 					<p className="button-text back-right-text">Back</p>
-					<section className="cube-container" >
+					<section className="cube-container">
 						<div id="cube">
 							<figure className="front">
 								{this.print('front')}
